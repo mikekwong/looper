@@ -16,19 +16,45 @@ export default class GoogleAuth extends Component {
           scope: 'email'
         })
         .then(() => {
+          // call the get Auth Instance to load up the methods we can use
           this.auth = window.gapi.auth2.getAuthInstance()
+          // set the state based on the current status of the user
           this.setState({ isSignedIn: this.auth.isSignedIn.get() })
+          // keep listening on if signed in status changed by passing in method
+          this.auth.isSignedIn.listen(this.onAuthChange)
         })
     })
   }
 
+  onAuthChange = () => {
+    this.setState({ isSignedIn: this.auth.isSignedIn.get() })
+  }
+
+  onSignIn = () => {
+    this.auth.signIn()
+  }
+
+  onSignOut = () => {
+    this.auth.signOut()
+  }
+
   renderAuthButton () {
     if (this.state.isSignedIn === null) {
-      return <div>I don't know if we are signed in</div>
+      return null
     } else if (this.state.isSignedIn) {
-      return <div>I am signed In!</div>
+      return (
+        <button onClick={this.onSignOut} className='ui red google button'>
+          <i className='google icon' />
+          Sign Out
+        </button>
+      )
     } else {
-      return <div>I am not signed in.</div>
+      return (
+        <button onClick={this.onSignIn} className='ui red google button'>
+          <i className='google icon' />
+          Sign In With Google
+        </button>
+      )
     }
   }
 
