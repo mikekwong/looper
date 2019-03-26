@@ -1,8 +1,8 @@
-const SIGN_IN = 'SIGN_IN'
-const SIGN_OUT = 'SIGN_OUT'
+import { SIGN_IN, SIGN_OUT } from './types'
 
-const signIn = () => ({
-  type: SIGN_IN
+const signIn = userId => ({
+  type: SIGN_IN,
+  payload: userId
 })
 
 const signOut = () => ({
