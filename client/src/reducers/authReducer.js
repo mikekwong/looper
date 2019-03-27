@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT } from '../actions/types'
+import { SIGN_IN, SIGN_OUT, CREATE_STREAM } from '../actions/types'
 
 // null because we don't know if user is signed in or not on load
 const INITIAL_STATE = {
