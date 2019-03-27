@@ -19,10 +19,13 @@ const signOut = () => ({
 })
 
 // thunk creators
-const createStream = formValues => async dispatch => {
+const createStream = formValues => async (dispatch, getState) => {
   try {
-    const { data } = await streams.post('/streams', formValues)
+    // when posting form, we include the input values as well the logged in userId that made the stream
+    const { userId } = getState().auth
+    const { data } = await streams.post('/streams', { ...formValues, userId })
     dispatch({ type: CREATE_STREAM, payload: data })
+    // do programmatic navigation to get user back to the root route depending on condition
   } catch (error) {
     console.error(error)
   }

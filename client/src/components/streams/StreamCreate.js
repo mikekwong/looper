@@ -30,7 +30,6 @@ class StreamCreate extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       // handlesubmit comes from range of methods inside redux form props..already includes preventDefault. We pass in callback we want invoked after submission
       <form
