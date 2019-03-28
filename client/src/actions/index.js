@@ -26,7 +26,7 @@ const createStream = formValues => async (dispatch, getState) => {
     const { userId } = getState().auth
     const { data } = await streams.post('/streams', { ...formValues, userId })
     dispatch({ type: CREATE_STREAM, payload: data })
-    // do programmatic navigation to get user back to the root route depending on condition
+    // do programmatic navigation to get user back to the root route depending on condition by forcible navigation
     history.push('/')
   } catch (error) {
     console.error(error)
@@ -53,8 +53,11 @@ const fetchStream = id => async dispatch => {
 
 const editStream = (id, formValues) => async dispatch => {
   try {
-    const { data } = await streams.put(`/streams/${id}`, formValues)
+    // PATCH request to just updated the form values that are passed in and not wiping out all values inside compared to using PUT
+    const { data } = await streams.patch(`/streams/${id}`, formValues)
     dispatch({ type: EDIT_STREAM, payload: data })
+    // do programmatic navigation to get user back to the root route depending on condition by forcible navigation
+    history.push('/')
   } catch (error) {
     console.error(error)
   }
