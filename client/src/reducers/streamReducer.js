@@ -60,8 +60,8 @@ export default (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload }
     case DELETE_STREAM:
       // payload is id itself as reference in thunk creator
-      // return _.omit(state, action.payload)
-      return { ...state.filter(payload => payload.id !== action.payload) }
+      return _.omit(state, action.payload)
+    // return { ...state.filter(payload => payload.id !== action.payload) }
     default:
       return state
   }
